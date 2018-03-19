@@ -4,7 +4,7 @@
    "containers":[  
       {  
          "hostname":"backup-server",
-         "template":"ubuntu16",
+         "template":"jetty",
          "peer-criteria":"HTTP-GROUP",
          "size":"MEDIUM"
       }
