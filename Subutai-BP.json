@@ -1,71 +1,26 @@
 {
-  "name": "${envName}",
-  "description": "example static website",
-  "version": "2.0.0",
-  "author": "github.com/samsonbek",
-  "containers":[
+  "name": "Simple-bluprint",
+  "description": "Simple blueprint",
+  "nodes": [
     {
-      "hostname":"web-apache",
-      "template":"debian",
-      "peer-criteria":"free peers",
-      "size":"TINY",
-      "port-mapping":[
-        {
-          "protocol":"http",
-          "domain":"${domainName}",
-          "external-port":"80",
-          "internal-port":"80"
-        }
-      ]
+      "name": "master",
+      "template": "redis",
+      "peer_group": "MASTER-GROUP-1",
+      "size": "LARGE"
     }
   ],
-  "peer-criteria":[
+  "peerGroups": [
     {
-      "name": "free peers",
-      "max-price": "0"
+      "name": "MASTER-GROUP-1",
+      "maxPeersInGroup": "1",
+      "hwPreferences": {
+        "avgCpuLoad": "10",
+        "minFreeRam": "512MiB",
+        "minFreeDiskSpace": "500MiB"
+      }
     }
   ],
-  "ansible-configuration": {
-    "source-url": "https://github.com/samsonbek/helloworld-bp/archive/master.zip",
-    "ansible-playbook": "main.yaml",
-    "extra-vars": [
-      {
-        "key": "htmlFileName",
-        "value": "${filename}"
-      },
-      {
-        "key": "htmlContent",
-        "value": "test"
-      }
-    ],
-    "groups": [
-      {
-        "name": "web-group",
-        "hostnames": [ "web-apache" ]
-      }
-    ]
-  },
-  "user-variables":
-  {
-    "envName": {
-      "description": "Enter environment name, must container only letters",
-      "type": "string",
-      "default": "HelloWWWorld",
-      "validation": "[a-zA-Z]+"
-    },
-    "domainName": {
-      "description": "Select domain name",
-      "type": "domain",
-      "default": "",
-      "validation": "[a-zA-Z0-9]+"
-    },
-    "filename": {
-      "description": "name of file in apache dir",
-      "type": "string",
-      "default": "about.html",
-      "validation": "[a-zA-Z0-9.]+"
-    }
-  }
+  "configuration": {}
 }
 
 
